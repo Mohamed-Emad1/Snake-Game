@@ -1,4 +1,3 @@
-import turtle
 from turtle import Turtle
 
 STARTING_POSITIONS = [(0, 0), (-20, 0), (-40, 0)]
@@ -18,7 +17,7 @@ class Snake:
 
     def add_square(self, position):
         new_square = Turtle("square")
-        new_square.color("white")
+        new_square.color("lime")
         new_square.penup()
         new_square.goto(position)
         self.new_box.append(new_square)

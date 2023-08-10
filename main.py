@@ -6,6 +6,7 @@ from score import ScoreBoard
 
 
 screen = Screen()
+screen.bgpic("snake.gif")
 screen.setup(width=600, height=600)
 screen.bgcolor("black")
 screen.title("Snake Game")
@@ -35,11 +36,13 @@ while game_is_on:
         food.refresh()
     if snake.head.xcor() > 280 or snake.head.xcor() < -290 or snake.head.ycor() > 295 or snake.head.ycor() < -290:
         game_is_on = False
+        screen.reset()
         score.end_game()
 
     for square in snake.new_box[1:]:
         if snake.head.distance(square) < 10:
-            game_is_on =False
+            game_is_on = False
+            screen.reset()
             score.end_game()
 
 screen.exitonclick()
