@@ -1,7 +1,5 @@
 import tkinter
-
 import pygame
-
 from snake import Snake
 from turtle import Screen
 import time
@@ -13,15 +11,16 @@ from pygame import mixer
 import ctypes
 my_app = 'mycompany.myproduct.subproduct.version'   # arbitrary string
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(my_app)
-pygame.init()
+
+pygame.init()    # play music
 
 window = Tk()
 window.geometry('850x542')
-window.resizable(False,False)           # make window fixed size
+window.resizable(False, False)           # make window fixed size
 window.title("Snake Game")
 bg = PhotoImage(file="ka.gif")
 
-mixer.music.load("background.wav")
+mixer.music.load("background.wav")          # mixer for loading and playing music
 mixer.music.play(-1)
 
 label1 = Label(window, image=bg)
@@ -29,17 +28,19 @@ label1.place(x=0, y=0)
 
 label = Label(window, text="Welcome to Snake Game Press Play to start the game", fg="cyan", bg="black",
               font=("Cairo", 16, "bold"))
+
 label.pack(side=tkinter.TOP, pady=5)
 
 
 def start_game():
+
     window.destroy()
     screen = Screen()
-    screen.bgpic("snake.gif")
+    screen.bgpic("snake.gif")       # background for screen (image)
     screen.setup(width=600, height=600)
-    screen.bgcolor("black")
+    # screen.bgcolor("black")
     screen.title("Snake Game")
-    screen.tracer(0)
+    screen.tracer(0)    # turn off animation
 
     snake = Snake()   # object from snake
     food = Food()
@@ -52,9 +53,10 @@ def start_game():
     screen.onkey(snake.left, "Left")
 
     game_is_on = True
+
     while game_is_on:
         screen.update()
-        time.sleep(0.07)
+        time.sleep(0.07)            # update screen every 0.07sec
         snake.move()
 
         if snake.head.distance(food) < 15:
@@ -63,13 +65,14 @@ def start_game():
             score.increase_score()
             snake.extended_snake()
             food.refresh()
+
         if snake.head.xcor() > 280 or snake.head.xcor() < -290 or snake.head.ycor() > 295 or snake.head.ycor() < -290:
             game_is_on = False
             pygame.mixer.music.set_volume(0)
             game_over = mixer.Sound("gameover.mp3")
             game_over.play()
             screen.reset()
-            score.end_game()
+            score.end_game()            # text for game over
 
         for square in snake.new_box[1:]:
             if snake.head.distance(square) < 10:
@@ -89,4 +92,5 @@ b = Button(window, text="Play", command=start_game, height=3, width=10, font=("C
 b.pack(side=tkinter.BOTTOM, pady=30)
 
 window.iconbitmap('snake.ico')
-window.mainloop()
+
+window.mainloop()           # show window

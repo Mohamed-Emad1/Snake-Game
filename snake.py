@@ -7,7 +7,7 @@ MOVE_DISTANCE = 20
 class Snake:
     def __init__(self):
 
-        self.new_box = []
+        self.new_box = []                #all squares of snake
         self.create_snake()
         self.head = self.new_box[0]
 
@@ -24,7 +24,7 @@ class Snake:
 
     def extended_snake(self):
         # position
-        self.add_square(self.new_box[-1].position())
+        self.add_square(self.new_box[-1].position())            #index -1 last element
 
     def move(self):
         for square_num in range(len(self.new_box) - 1, 0, -1):
